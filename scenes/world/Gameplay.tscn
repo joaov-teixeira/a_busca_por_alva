@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cx33wq6fei05b"]
+
+[ext_resource type="PackedScene" uid="uid://bi63fxavagocj" path="res://scenes/player/player.tscn" id="1_ure5q"]
+[ext_resource type="Texture2D" uid="uid://d1vn0ifl5em31" path="res://icon.svg" id="2_m3lw7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_piedb"]
+size = Vector2(13, 12.5625)
+
+[node name="gameplay" type="Node2D" unique_id=732472967]
+
+[node name="Player" parent="." unique_id=2104001413 instance=ExtResource("1_ure5q")]
+position = Vector2(184, 317)
+move_time = 0.15
+
+[node name="Obstacle" type="StaticBody2D" parent="." unique_id=309828542]
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle" unique_id=1699818353]
+position = Vector2(729, 310)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_m3lw7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle" unique_id=1656437039]
+position = Vector2(737, 315)
+scale = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_piedb")
