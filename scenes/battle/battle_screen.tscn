@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://do6oigu2wpuq6"]
+
+[ext_resource type="Script" uid="uid://c7c20bwkiddw3" path="res://scripts/battle/battle_screen.gd" id="1_jxgni"]
+
+[node name="BattleScreen" type="CanvasLayer" unique_id=1981258681]
+script = ExtResource("1_jxgni")
+
+[node name="Root" type="Control" parent="." unique_id=1894302233]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Root" unique_id=2033920341]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Root/Panel" unique_id=1904184737]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -139.5
+offset_top = -248.0
+offset_right = 139.5
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Root/Panel/MarginContainer" unique_id=818068591]
+layout_mode = 2
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=856941184]
+layout_mode = 2
+text = "Batalha"
+horizontal_alignment = 1
+
+[node name="EnemyHPLabel" type="Label" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=1093568362]
+layout_mode = 2
+text = "Sombra Corrompida HP: 3/3"
+horizontal_alignment = 1
+
+[node name="BattleLogLabel" type="Label" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=26298471]
+layout_mode = 2
+text = "Uma sombra bloqueia seu caminho."
+horizontal_alignment = 1
+
+[node name="ActionsContainer" type="HBoxContainer" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=137746028]
+layout_mode = 2
+
+[node name="AttackButton" type="Button" parent="Root/Panel/MarginContainer/VBoxContainer/ActionsContainer" unique_id=1514273989]
+layout_mode = 2
+text = "Atacar"
+
+[node name="DefendButton" type="Button" parent="Root/Panel/MarginContainer/VBoxContainer/ActionsContainer" unique_id=1602044746]
+layout_mode = 2
+text = "Defender"
+
+[node name="FleeButton" type="Button" parent="Root/Panel/MarginContainer/VBoxContainer/ActionsContainer" unique_id=629509128]
+layout_mode = 2
+text = "Fugir"

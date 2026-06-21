@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://lgcxruvkeyha"]
+
+[ext_resource type="Script" uid="uid://dd8p03b1f2uko" path="res://scripts/world/interactables/enemy.gd" id="1_vao2y"]
+[ext_resource type="Texture2D" uid="uid://2mm7qvsvchp5" path="res://assets/sprites/almaCorrompidaTeste.png" id="2_vao2y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nyh21"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vao2y"]
+size = Vector2(18, 18)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=463520099]
+script = ExtResource("1_vao2y")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=481229918]
+z_index = 6
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_vao2y")
+region_rect = Rect2(0, 16, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1147215784]
+shape = SubResource("RectangleShape2D_nyh21")
+
+[node name="BattleDetection" type="Area2D" parent="." unique_id=1039201773]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleDetection" unique_id=1038932059]
+shape = SubResource("RectangleShape2D_vao2y")

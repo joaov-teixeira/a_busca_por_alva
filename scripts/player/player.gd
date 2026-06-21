@@ -1,65 +1,48 @@
 extends CharacterBody2D
 
-@export var tile_size: int = 16
-@export var move_time: float = 0.12
+@export var move_speed: float = 55.0
 
-var is_moving: bool = false
+var can_move: bool = true
 var facing_direction: Vector2 = Vector2.DOWN
-
-func snap_to_grid_center(pos: Vector2) -> Vector2:
-	var half_tile := tile_size / 2.0
-
-	return Vector2(
-		floor(pos.x / tile_size) * tile_size + half_tile,
-		floor(pos.y / tile_size) * tile_size + half_tile
-	)
-
-
-func _ready() -> void:
-	global_position = snap_to_grid_center(global_position)
 
 
 func _physics_process(_delta: float) -> void:
-	if is_moving:
+	if not can_move:
+		velocity = Vector2.ZERO
+		move_and_slide()
 		return
 
 	var direction := get_input_direction()
 
 	if direction != Vector2.ZERO:
 		facing_direction = direction
-		try_move(direction)
+		velocity = direction * move_speed
+	else:
+		velocity = Vector2.ZERO
+
+	move_and_slide()
 
 
 func get_input_direction() -> Vector2:
+	var direction := Vector2.ZERO
+
 	if Input.is_action_pressed("move_up"):
-		return Vector2.UP
+		direction.y -= 1
 
 	if Input.is_action_pressed("move_down"):
-		return Vector2.DOWN
+		direction.y += 1
 
 	if Input.is_action_pressed("move_left"):
-		return Vector2.LEFT
+		direction.x -= 1
 
 	if Input.is_action_pressed("move_right"):
-		return Vector2.RIGHT
+		direction.x += 1
 
-	return Vector2.ZERO
-
-
-func try_move(direction: Vector2) -> void:
-	var motion := direction * tile_size
-
-	if test_move(global_transform, motion):
-		return
-
-	is_moving = true
-
-	var target_position := global_position + motion
-	var tween := create_tween()
-
-	tween.tween_property(self, "global_position", target_position, move_time)
-	tween.finished.connect(_on_move_finished)
+	return direction.normalized()
 
 
-func _on_move_finished() -> void:
-	is_moving = false
+func set_can_move(value: bool) -> void:
+	can_move = value
+
+	if not can_move:
+		velocity = Vector2.ZERO
