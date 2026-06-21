@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://d3p3hs62mp35l" path="res://scenes/ui/hud.tscn" id="4_ygoed"]
 [ext_resource type="PackedScene" uid="uid://b4pfmo2pbkbpj" path="res://scenes/world/interactables/altar.tscn" id="5_jim0d"]
 [ext_resource type="PackedScene" uid="uid://lgcxruvkeyha" path="res://scenes/world/interactables/enemy_trigger.tscn" id="6_ppkwy"]
+[ext_resource type="PackedScene" uid="uid://bbc0fv0dsmetx" path="res://scenes/world/interactables/gate_exit.tscn" id="7_83ce6"]
 [ext_resource type="PackedScene" uid="uid://do6oigu2wpuq6" path="res://scenes/battle/battle_screen.tscn" id="9_xofab"]
+[ext_resource type="PackedScene" uid="uid://cf0fwp6cvlwvw" path="res://scenes/ui/phase_end_screen.tscn" id="11_osljb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piedb"]
 size = Vector2(13, 12.5625)
@@ -69,6 +71,9 @@ is_correct = true
 [node name="Enemy" parent="PrototypeMap/Interactables" unique_id=291445205 instance=ExtResource("6_ppkwy")]
 position = Vector2(250, 160)
 
+[node name="GateExit" parent="PrototypeMap/Interactables" unique_id=1405107465 instance=ExtResource("7_83ce6")]
+position = Vector2(120, 160)
+
 [node name="Player" parent="." unique_id=2104001413 instance=ExtResource("1_ure5q")]
 z_index = 5
 position = Vector2(526, 159)
@@ -76,3 +81,5 @@ position = Vector2(526, 159)
 [node name="HUD" parent="." unique_id=793533406 instance=ExtResource("4_ygoed")]
 
 [node name="BattleScreen" parent="." unique_id=1981258681 instance=ExtResource("9_xofab")]
+
+[node name="PhaseEndScreen" parent="." unique_id=1950137958 instance=ExtResource("11_osljb")]

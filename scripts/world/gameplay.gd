@@ -11,6 +11,9 @@ extends Node2D
 @onready var true_altar = get_node_or_null("PrototypeMap/Interactables/TrueAltar")
 @onready var enemy = get_node_or_null("PrototypeMap/Interactables/Enemy")
 
+@onready var gate_exit = get_node_or_null("PrototypeMap/Interactables/GateExit")
+@onready var phase_end_screen = $PhaseEndScreen
+
 @export var courage_decay_per_second: float = 2.0
 @export var courage_reset_after_damage: float = 60
 
@@ -23,6 +26,7 @@ var gate_open: bool = false
 var is_in_battle: bool = false
 var current_enemy: Node = null
 
+var phase_message_active: bool = false
 
 func _ready() -> void:
 	gray_area.body_entered.connect(_on_gray_area_body_entered)
@@ -43,6 +47,11 @@ func _ready() -> void:
 	battle_screen.battle_won.connect(_on_battle_won)
 	battle_screen.battle_fled.connect(_on_battle_fled)
 	battle_screen.player_damaged.connect(_on_battle_player_damaged)
+	
+	if gate_exit != null:
+		gate_exit.gate_entered.connect(_on_gate_exit_entered)
+	
+	phase_end_screen.closed.connect(_on_phase_end_screen_closed)
 
 
 func _process(delta: float) -> void:
@@ -118,8 +127,11 @@ func open_gate() -> void:
 
 	gate_open = true
 
-	object_layer.erase_cell(Vector2i(7, 9))
-	object_layer.erase_cell(Vector2i(7, 10))
+	object_layer.erase_cell(Vector2i(9, 7))
+	object_layer.erase_cell(Vector2i(10, 7))
+
+	if gate_exit != null:
+		gate_exit.set_active(true)
 
 	print("Portão aberto")
 
@@ -183,3 +195,25 @@ func _handle_game_over() -> void:
 
 	if battle_screen != null:
 		battle_screen.force_end_battle()
+		
+
+func _on_gate_exit_entered() -> void:
+	if not gate_open:
+		return
+
+	if phase_message_active:
+		return
+
+	phase_message_active = true
+
+	player.set_can_move(false)
+	hud.visible = false
+
+	phase_end_screen.show_message("Fase não implementada")
+
+
+func _on_phase_end_screen_closed() -> void:
+	phase_message_active = false
+
+	hud.visible = true
+	player.set_can_move(true)

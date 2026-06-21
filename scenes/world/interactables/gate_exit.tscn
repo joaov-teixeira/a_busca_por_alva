@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bbc0fv0dsmetx"]
+
+[ext_resource type="Script" uid="uid://dle300cvmb2vx" path="res://scripts/world/interactables/gate_exit.gd" id="1_8ibof"]
+[ext_resource type="Texture2D" uid="uid://b54vfvjgkaal6" path="res://assets/sprites/portalTeste.png" id="2_8ibof"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdyki"]
+size = Vector2(30, 30)
+
+[node name="GateExit" type="Area2D" unique_id=1405107465]
+script = ExtResource("1_8ibof")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1738509529]
+z_index = 8
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_8ibof")
+region_rect = Rect2(32, 16, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1362892291]
+shape = SubResource("RectangleShape2D_wdyki")
