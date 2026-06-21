@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://cx33wq6fei05b"]
 
 [ext_resource type="PackedScene" uid="uid://bi63fxavagocj" path="res://scenes/player/player.tscn" id="1_ure5q"]
+[ext_resource type="Script" uid="uid://dambux8cbbgad" path="res://scripts/world/gameplay.gd" id="1_vn7e1"]
 [ext_resource type="Texture2D" uid="uid://d1vn0ifl5em31" path="res://icon.svg" id="2_m3lw7"]
 [ext_resource type="TileSet" uid="uid://ddueetbueucde" path="res://assets/tilesets/alva_placeholder_tileset.tres" id="3_7l7nx"]
 [ext_resource type="PackedScene" uid="uid://d3p3hs62mp35l" path="res://scenes/ui/hud.tscn" id="4_ygoed"]
@@ -8,7 +9,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piedb"]
 size = Vector2(13, 12.5625)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5v08"]
+
 [node name="gameplay" type="Node2D" unique_id=732472967]
+script = ExtResource("1_vn7e1")
 
 [node name="Obstacle" type="StaticBody2D" parent="." unique_id=309828542]
 visible = false
@@ -37,6 +41,13 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAEAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAE
 tile_set = ExtResource("3_7l7nx")
 
 [node name="MarkerLayer" type="Node2D" parent="PrototypeMap" unique_id=1073145631]
+
+[node name="GrayArea" type="Area2D" parent="PrototypeMap" unique_id=869588252]
+position = Vector2(160, 160)
+scale = Vector2(10, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PrototypeMap/GrayArea" unique_id=1679768692]
+shape = SubResource("RectangleShape2D_s5v08")
 
 [node name="Player" parent="." unique_id=2104001413 instance=ExtResource("1_ure5q")]
 z_index = 5
