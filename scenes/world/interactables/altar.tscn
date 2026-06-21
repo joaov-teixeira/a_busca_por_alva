@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b4pfmo2pbkbpj"]
+
+[ext_resource type="Script" uid="uid://dlg1v07f8gyr6" path="res://scripts/world/interactables/altar.gd" id="1_f8p20"]
+[ext_resource type="Texture2D" uid="uid://dl426piwmf8hr" path="res://assets/tilesets/alva_placeholder_tileset_16x16.png" id="2_r1egs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2prd8"]
+size = Vector2(18, 18)
+
+[node name="Altar" type="Area2D" unique_id=137409505]
+script = ExtResource("1_f8p20")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1148696748]
+z_index = 6
+texture = ExtResource("2_r1egs")
+region_enabled = true
+region_rect = Rect2(16, 16, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1238615629]
+shape = SubResource("RectangleShape2D_2prd8")
