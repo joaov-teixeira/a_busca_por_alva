@@ -6,9 +6,17 @@ extends CharacterBody2D
 var is_moving: bool = false
 var facing_direction: Vector2 = Vector2.DOWN
 
+func snap_to_grid_center(pos: Vector2) -> Vector2:
+	var half_tile := tile_size / 2.0
+
+	return Vector2(
+		floor(pos.x / tile_size) * tile_size + half_tile,
+		floor(pos.y / tile_size) * tile_size + half_tile
+	)
+
 
 func _ready() -> void:
-	position = position.snapped(Vector2(tile_size, tile_size))
+	global_position = snap_to_grid_center(global_position)
 
 
 func _physics_process(_delta: float) -> void:
