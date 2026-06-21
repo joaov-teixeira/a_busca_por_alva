@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bi63fxavagocj" path="res://scenes/player/player.tscn" id="1_ure5q"]
 [ext_resource type="Texture2D" uid="uid://d1vn0ifl5em31" path="res://icon.svg" id="2_m3lw7"]
 [ext_resource type="TileSet" uid="uid://ddueetbueucde" path="res://assets/tilesets/alva_placeholder_tileset.tres" id="3_7l7nx"]
+[ext_resource type="PackedScene" uid="uid://d3p3hs62mp35l" path="res://scenes/ui/hud.tscn" id="4_ygoed"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piedb"]
 size = Vector2(13, 12.5625)
@@ -41,3 +42,5 @@ tile_set = ExtResource("3_7l7nx")
 z_index = 5
 position = Vector2(526, 159)
 move_time = 0.15
+
+[node name="HUD" parent="." unique_id=793533406 instance=ExtResource("4_ygoed")]
