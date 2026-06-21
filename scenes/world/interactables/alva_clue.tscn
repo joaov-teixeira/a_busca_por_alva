@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dhgy444f5uysc"]
+
+[ext_resource type="Script" uid="uid://bhpue0sre2bli" path="res://scripts/world/interactables/alva_clue.gd" id="1_gilta"]
+[ext_resource type="Texture2D" uid="uid://dl426piwmf8hr" path="res://assets/tilesets/alva_placeholder_tileset_16x16.png" id="2_q5ngi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qcry8"]
+size = Vector2(16, 16)
+
+[node name="AlvaClue" type="Area2D" unique_id=1571889218]
+script = ExtResource("1_gilta")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=190140699]
+texture = ExtResource("2_q5ngi")
+region_enabled = true
+region_rect = Rect2(32, 16, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1983028965]
+shape = SubResource("RectangleShape2D_qcry8")
