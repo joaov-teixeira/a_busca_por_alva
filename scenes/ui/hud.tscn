@@ -27,3 +27,24 @@ text = "Coragem: 100/100"
 [node name="CourageBar" type="ProgressBar" parent="LeftHUD/VBoxContainer" unique_id=328329088]
 layout_mode = 2
 value = 100.0
+
+[node name="MessagePanel" type="PanelContainer" parent="." unique_id=108963384]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MessagePanel" unique_id=1723828842]
+layout_mode = 2
+
+[node name="MessageLabel" type="Label" parent="MessagePanel/MarginContainer" unique_id=2083526870]
+layout_mode = 2
+text = "Mensagem do jogo"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -4,6 +4,9 @@ extends CanvasLayer
 @onready var courage_label: Label = $LeftHUD/VBoxContainer/CourageLabel
 @onready var courage_bar: ProgressBar = $LeftHUD/VBoxContainer/CourageBar
 
+@onready var message_panel: PanelContainer = $MessagePanel
+@onready var message_label: Label = $MessagePanel/MarginContainer/MessageLabel
+
 var max_health: int = 3
 var health: int = 3
 
@@ -14,6 +17,8 @@ var courage: float = 100.0
 func _ready() -> void:
 	update_health(health)
 	update_courage(courage)
+	
+	message_panel.visible = false
 
 
 func update_health(new_health: int) -> void:
@@ -54,3 +59,26 @@ func decrease_courage(amount: float) -> void:
 
 func increase_courage(amount: float) -> void:
 	update_courage(courage + amount)
+
+func show_message(message: String, duration: float = 2.0) -> void:
+	message_label.text = message
+	message_panel.modulate.a = 1.0
+	message_panel.visible = true
+
+	await get_tree().create_timer(duration).timeout
+
+	if not message_panel.visible:
+		return
+
+	var tween := create_tween()
+	tween.tween_property(message_panel, "modulate:a", 0.0, 0.25)
+
+	await tween.finished
+
+	message_panel.visible = false
+	message_panel.modulate.a = 1.0
+
+
+func hide_message() -> void:
+	message_panel.visible = false
+	message_panel.modulate.a = 1.0

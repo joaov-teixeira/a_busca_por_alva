@@ -90,6 +90,7 @@ func _on_courage_depleted() -> void:
 func _on_alva_clue_collected() -> void:
 	has_alva_clue = true
 	hud.increase_courage(15)
+	hud.show_message("Pista de Alva coletada. Uma runa aponta para o altar verdadeiro.")
 
 	print("Estado atualizado: has_alva_clue = true")
 
@@ -103,6 +104,7 @@ func _on_altar_activated(altar_id: String, is_correct: bool) -> void:
 
 func _handle_false_altar(altar_id: String) -> void:
 	hud.damage_player(1)
+	hud.show_message("Altar falso! Você perdeu 1 coração.")
 
 	print("Altar falso ativado: " + altar_id)
 	print("Player perdeu 1 coração")
@@ -115,9 +117,11 @@ func _handle_correct_altar(altar_id: String) -> void:
 	print("Altar verdadeiro ativado: " + altar_id)
 
 	if not has_alva_clue:
+		hud.show_message("A magia do altar não responde. Talvez falte uma pista de Alva.")
 		print("A magia do altar não responde. Talvez falte uma pista de Alva.")
 		return
 
+	hud.show_message("A runa de Alva responde. O portão foi aberto.")
 	open_gate()
 
 
@@ -133,6 +137,7 @@ func open_gate() -> void:
 	if gate_exit != null:
 		gate_exit.set_active(true)
 
+	hud.show_message("O caminho foi aberto.")
 	print("Portão aberto")
 
 
