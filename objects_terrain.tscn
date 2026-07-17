@@ -1,7 +1,9 @@
-[gd_scene format=3 uid="uid://bod11w8oreh7p"]
+[gd_scene format=3 uid="uid://rmfjueulxy3m"]
 
 [ext_resource type="Texture2D" uid="uid://b2tuls3gvk30y" path="res://assets/floors/objects.png" id="1_kqoq6"]
 [ext_resource type="Texture2D" uid="uid://ojyt2h3evavw" path="res://assets/floors/arvore.png" id="2_1cnl6"]
+[ext_resource type="Texture2D" uid="uid://bjrg4s3hf4u2m" path="res://assets/floors/rocks.png" id="3_fhlu4"]
+[ext_resource type="Texture2D" uid="uid://ct4cy4vs6n8vn" path="res://assets/floors/caixa.png" id="4_7ns4n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1cnl6"]
 resource_name = "objects"
@@ -11,6 +13,7 @@ texture = ExtResource("1_kqoq6")
 0:5/0/texture_origin = Vector2i(0, 18)
 0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-11.870676, -5.5756197, 11.690817, -5.935337, 11.870676, 8.273502, -12.230393, 8.273502)
 0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2.3381634, -6.2950544, 2.5180225, -8, 6.2950554, -1.4388695, 8, 3.2374573, 4.856186, 8, 0.8992939, 8, -5.5756207, 4.856186, -8, 0.71943474)
 0:0/0 = 0
 5:0/next_alternative_id = 2
 5:0/0 = 0
@@ -23,11 +26,23 @@ texture_region_size = Vector2i(46, 60)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.093643, 13.489405, 10.791523, 12.410252, 12.769968, 20.324036, 12.230394, 23.921211, 9.712372, 27.878103, 1.978445, 28.057962, -5.2159033, 27.518385, -10.431807, 24.280928, -9.89223, 13.489405)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ns4n"]
+texture = ExtResource("3_fhlu4")
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.5756207, -4.13675, -0.17985916, -8, 5.75548, -3.4173155, 5.935339, 5.3957634, 1.978445, 8, -3.7770338, 5.75548, -6.2950554, 2.8777409, -6.4749146, 0.35971832, -6.2950554, 1.978447)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a14j3"]
+texture = ExtResource("4_7ns4n")
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
 [sub_resource type="TileSet" id="TileSet_a8ku5"]
 physics_layer_0/collision_layer = 1
 physics_layer_1/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_1cnl6")
 sources/2 = SubResource("TileSetAtlasSource_fhlu4")
+sources/3 = SubResource("TileSetAtlasSource_7ns4n")
+sources/4 = SubResource("TileSetAtlasSource_a14j3")
 
 [node name="ObjectsTerrain" type="TileMap" unique_id=784610184]
 y_sort_enabled = true
