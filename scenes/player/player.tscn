@@ -8,7 +8,7 @@ size = Vector2(8, 8)
 
 [node name="Player" type="CharacterBody2D" unique_id=2104001413]
 script = ExtResource("1_dovo2")
-move_speed = 70.0
+move_speed = 3000.215
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1174004993]
 scale = Vector2(0.04, 0.04)
