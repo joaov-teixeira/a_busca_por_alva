@@ -16,11 +16,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="TextureRect" parent="Root" unique_id=496293735]
+visible = false
 layout_mode = 0
-offset_left = -155.0
+offset_left = -77.0
 offset_top = -83.0
-offset_right = 1303.0
-offset_bottom = 817.0
+offset_right = 1249.0
+offset_bottom = 776.0
 texture = ExtResource("2_g0k2o")
 expand_mode = 1
 
@@ -77,9 +78,13 @@ autowrap_mode = 3
 
 [node name="ActionsContainer" type="HBoxContainer" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=137746028]
 layout_mode = 2
+size_flags_vertical = 4
+offset_transform_enabled = true
+alignment = 1
 
 [node name="AttackButton" type="Button" parent="Root/Panel/MarginContainer/VBoxContainer/ActionsContainer" unique_id=1514273989]
 layout_mode = 2
+offset_transform_enabled = true
 text = "Atacar"
 
 [node name="DefendButton" type="Button" parent="Root/Panel/MarginContainer/VBoxContainer/ActionsContainer" unique_id=1602044746]
@@ -88,4 +93,5 @@ text = "Defender"
 
 [node name="FleeButton" type="Button" parent="Root/Panel/MarginContainer/VBoxContainer/ActionsContainer" unique_id=629509128]
 layout_mode = 2
+offset_transform_enabled = true
 text = "Fugir"

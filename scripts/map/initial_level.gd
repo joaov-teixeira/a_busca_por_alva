@@ -10,28 +10,91 @@ extends Node2D
 var dialogue_active: bool = false
 var battle_active: bool = false
 
-var player_max_health: int = 3
-var player_current_health: int = 3
+var player_max_health: int = 10
+var player_current_health: int = 5
+
 
 var current_enemy: BattleEnemy = null
+@export_category("Degenerated Area")
 
+@export var courage_decay_per_second: float = 1
+@export var courage_after_collapse: float = 40.0
+
+var player_max_courage: float = 100.0
+var player_current_courage: float = 100.0
+
+var active_degenerated_areas: Array[DegeneratedArea] = []
+
+var defeat_in_progress: bool = false
 
 func _ready() -> void:
 	connect_battle_screen_signals()
 	connect_dialogue_box_signals()
 
 	hud.update_health(player_current_health)
-
+	hud.update_courage(player_current_courage)
 	# Aguarda NPCs e inimigos entrarem em seus grupos.
 	await get_tree().process_frame
 
 	connect_dialogue_triggers()
 	connect_battle_enemies()
-
+	connect_degenerated_areas()
 
 # =========================================================
 # CONEXÃO DOS SINAIS PRINCIPAIS
 # =========================================================
+func connect_degenerated_areas() -> void:
+	var areas: Array[Node] = get_tree().get_nodes_in_group(
+		"degenerated_areas"
+	)
+
+	print("Áreas degeneradas encontradas: ", areas.size())
+
+	for node: Node in areas:
+		if not node is DegeneratedArea:
+			continue
+
+		var area: DegeneratedArea = node
+
+		if not area.player_entered.is_connected(
+			_on_degenerated_area_entered
+		):
+			area.player_entered.connect(
+				_on_degenerated_area_entered
+			)
+
+		if not area.player_exited.is_connected(
+			_on_degenerated_area_exited
+		):
+			area.player_exited.connect(
+				_on_degenerated_area_exited
+			)
+
+
+func _on_degenerated_area_entered(
+	area: DegeneratedArea
+) -> void:
+	if active_degenerated_areas.has(area):
+		return
+
+	active_degenerated_areas.append(area)
+
+	hud.show_message(
+		"Você entrou em uma Área Degenerada.",
+		2.0
+	)
+
+
+func _on_degenerated_area_exited(
+	area: DegeneratedArea
+) -> void:
+	active_degenerated_areas.erase(area)
+
+	if active_degenerated_areas.is_empty():
+		hud.show_message(
+			"Você deixou a Área Degenerada.",
+			2.0
+		)
 
 func connect_dialogue_box_signals() -> void:
 	if not dialogue_box.dialogue_finished.is_connected(
@@ -71,10 +134,53 @@ func connect_battle_screen_signals() -> void:
 			_on_player_defeated
 		)
 
+func _process(delta: float) -> void:
+	if defeat_in_progress:
+		return
 
+	if dialogue_active:
+		return
+
+	if battle_active:
+		return
+
+	if active_degenerated_areas.is_empty():
+		return
+
+	player_current_courage = maxf(
+		0.0,
+		player_current_courage
+		- courage_decay_per_second * delta
+	)
+
+	hud.update_courage(player_current_courage)
+
+	if player_current_courage <= 0.0:
+		handle_courage_exhausted()
 # =========================================================
 # SISTEMA DE DIÁLOGO
 # =========================================================
+
+func handle_courage_exhausted() -> void:
+	player_current_health = max(
+		0,
+		player_current_health - 1
+	)
+
+	hud.update_health(player_current_health)
+
+	if player_current_health <= 0:
+		_on_player_defeated()
+		return
+
+	player_current_courage = courage_after_collapse
+
+	hud.update_courage(player_current_courage)
+
+	hud.show_message(
+		"A escuridão consumiu 1 coração!",
+		2.5
+	)
 
 func connect_dialogue_triggers() -> void:
 	var triggers: Array[Node] = get_tree().get_nodes_in_group(
@@ -239,6 +345,10 @@ func _on_battle_fled() -> void:
 
 
 func _on_player_defeated() -> void:
+	if defeat_in_progress:
+		return
+
+	defeat_in_progress = true
 	battle_active = false
 	current_enemy = null
 

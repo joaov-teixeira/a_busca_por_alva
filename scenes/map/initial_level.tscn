@@ -5,22 +5,25 @@
 [ext_resource type="Texture2D" uid="uid://uppp4oiktvut" path="res://assets/tilesets/timefantasy_tiles/water.png" id="2_jharw"]
 [ext_resource type="PackedScene" uid="uid://bi63fxavagocj" path="res://scenes/player/player.tscn" id="2_t66qn"]
 [ext_resource type="Texture2D" uid="uid://f0dh8ioy13wj" path="res://assets/tilesets/timefantasy_tiles/dungeon.png" id="3_3x7cy"]
-[ext_resource type="PackedScene" uid="uid://rmfjueulxy3m" path="res://objects_terrain.tscn" id="3_cnao8"]
+[ext_resource type="PackedScene" uid="uid://rmfjueulxy3m" path="res://scenes/world/objects_terrain.tscn" id="3_cnao8"]
 [ext_resource type="Texture2D" uid="uid://bbqe3jcxi6mbl" path="res://assets/tilesets/Cliff/Cliff Dry 64X64.png" id="4_5hjry"]
 [ext_resource type="PackedScene" uid="uid://d3p3hs62mp35l" path="res://scenes/ui/hud.tscn" id="4_t66qn"]
 [ext_resource type="PackedScene" uid="uid://bpfgfrwwsiqyl" path="res://scenes/world/santa.tscn" id="5_5ktmr"]
 [ext_resource type="PackedScene" uid="uid://ottfn0qgw7yt" path="res://scenes/world/soldado_lança.tscn" id="5_cnao8"]
 [ext_resource type="PackedScene" uid="uid://bqk6kalnt2b8w" path="res://scenes/world/soldado_ferido.tscn" id="6_bogbu"]
 [ext_resource type="PackedScene" uid="uid://dv4shjlpvtx0u" path="res://scenes/world/soldado_mago.tscn" id="6_rl7t5"]
+[ext_resource type="Script" uid="uid://cx4p46ak5p5jh" path="res://scripts/map/degenerated_area.gd" id="9_006wk"]
 [ext_resource type="Texture2D" uid="uid://d4e01suvlrq0" path="res://assets/portraits/feira.png" id="11_waw0w"]
 [ext_resource type="PackedScene" uid="uid://ctah012rrktus" path="res://scenes/ui/dialogue_box.tscn" id="13_4cpin"]
 [ext_resource type="Texture2D" uid="uid://32kk8xgwhkke" path="res://assets/portraits/mago.png" id="13_037uo"]
 [ext_resource type="Script" uid="uid://dc008uenlxnsp" path="res://scripts/dialogue/npc_proximity_dialogue.gd" id="13_qk2x5"]
 [ext_resource type="Texture2D" uid="uid://bmonlemmgp8uo" path="res://assets/portraits/soldado_lança.png" id="14_hgq8r"]
 [ext_resource type="Script" uid="uid://cwbrdapdi5oj" path="res://scripts/dialogue/internal_dialogue_trigger.gd" id="16_hgq8r"]
+[ext_resource type="Texture2D" uid="uid://yde3xnr284j8" path="res://assets/portraits/ferido.png" id="16_xtusm"]
 [ext_resource type="Texture2D" uid="uid://co0sq3tdrwdve" path="res://assets/portraits/himmel.png" id="17_yppse"]
 [ext_resource type="PackedScene" uid="uid://do6oigu2wpuq6" path="res://scenes/battle/battle_screen.tscn" id="20_037uo"]
 [ext_resource type="PackedScene" uid="uid://lgcxruvkeyha" path="res://scenes/world/interactables/enemy_trigger.tscn" id="21_sdd8o"]
+[ext_resource type="Texture2D" uid="uid://dgxwxt48dl3f7" path="res://assets/portraits/alva.png" id="24_vvnti"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4cpin"]
 texture = ExtResource("2_jharw")
@@ -1093,11 +1096,14 @@ sources/0 = SubResource("TileSetAtlasSource_4cpin")
 sources/1 = SubResource("TileSetAtlasSource_qk2x5")
 sources/2 = SubResource("TileSetAtlasSource_hgq8r")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltlql"]
+size = Vector2(511, 333)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_piedb"]
 size = Vector2(273.33447, 2600.0005)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2165"]
-size = Vector2(121, 151)
+size = Vector2(14.875, 151)
 
 [node name="initial_level" type="Node2D" unique_id=1844401856]
 z_index = 5
@@ -1122,9 +1128,19 @@ layer_0/tile_data = PackedInt32Array(327688, 0, 5, -196601, 0, 5, 21, 0, 5, -655
 
 [node name="Player" parent="." unique_id=2104001413 instance=ExtResource("2_t66qn")]
 z_index = 1
-position = Vector2(1649, 39)
+position = Vector2(-201, 17)
 
 [node name="HUD" parent="." unique_id=793533406 instance=ExtResource("4_t66qn")]
+
+[node name="DegeneratedAreas" type="Node2D" parent="." unique_id=1141413202]
+position = Vector2(1700, 0)
+
+[node name="DegeneratedArea" type="Area2D" parent="DegeneratedAreas" unique_id=788137224]
+script = ExtResource("9_006wk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DegeneratedAreas/DegeneratedArea" unique_id=1818951896]
+position = Vector2(-68, 36)
+shape = SubResource("RectangleShape2D_ltlql")
 
 [node name="npcs" type="Node2D" parent="." unique_id=456784559]
 scale = Vector2(0.06, 0.06)
@@ -1164,7 +1180,7 @@ scale = Vector2(0.99999994, 0.99999994)
 [node name="DialogueTrigger" type="Area2D" parent="npcs/soldado lança2" unique_id=817203112]
 script = ExtResource("13_qk2x5")
 npc_name = "Soldado Ferido"
-npc_portrait = ExtResource("14_hgq8r")
+npc_portrait = ExtResource("16_xtusm")
 dialogue_texts = Array[String](["Himmel!! algo me atacou, eu não consegui fazer nada alem de fugir, só consegui ver um clarão, parecia magia!!"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="npcs/soldado lança2/DialogueTrigger" unique_id=880740724]
@@ -1206,3 +1222,61 @@ shape = SubResource("RectangleShape2D_a2165")
 
 [node name="ShadowCreature" parent="Enemies" unique_id=463520099 instance=ExtResource("21_sdd8o")]
 position = Vector2(1689.0001, 27)
+
+[node name="Dialogo interno2" type="Area2D" parent="." unique_id=1198073317]
+script = ExtResource("16_hgq8r")
+thoughts = Array[String](["Magia aqui? não era para ser possível..."])
+thought_portrait = ExtResource("17_yppse")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno2" unique_id=1156997007]
+position = Vector2(935.25, -20)
+shape = SubResource("RectangleShape2D_a2165")
+
+[node name="Dialogo interno3" type="Area2D" parent="." unique_id=334694130]
+script = ExtResource("16_hgq8r")
+thoughts = Array[String](["Talvez eu não seja pareo para isso... sinto minha energia vital sendo drenada"])
+thought_portrait = ExtResource("17_yppse")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno3" unique_id=2080434184]
+position = Vector2(1216, 47)
+shape = SubResource("RectangleShape2D_a2165")
+
+[node name="Dialogo interno4" type="Area2D" parent="." unique_id=89926883]
+script = ExtResource("16_hgq8r")
+thoughts = Array[String](["HIMMEL! a conexão está fraca, consegue me ouvir?"])
+thought_portrait = ExtResource("24_vvnti")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno4" unique_id=777378348]
+position = Vector2(1236, 46)
+shape = SubResource("RectangleShape2D_a2165")
+
+[node name="Dialogo interno5" type="Area2D" parent="." unique_id=993118393]
+script = ExtResource("16_hgq8r")
+thoughts = Array[String](["ALVA??? estou sentindo sua presença, o que está acontecendo?"])
+thought_portrait = ExtResource("17_yppse")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno5" unique_id=1885135307]
+position = Vector2(1255, 46)
+shape = SubResource("RectangleShape2D_a2165")
+
+[node name="Dialogo interno6" type="Area2D" parent="." unique_id=931713323]
+script = ExtResource("16_hgq8r")
+thoughts = Array[String](["Eu não tenho tempo, estamos sendo atacados pelo Rei Demônio ", "vou usar minhas forças para proteger todos do Reino, vou protege-lo com minha magia para que você consiga enfrentar essa energia! ", "fique atento aos si... ????? .
+
+. 
+Himmel?"])
+thought_portrait = ExtResource("24_vvnti")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno6" unique_id=504112409]
+position = Vector2(1282, 48)
+shape = SubResource("RectangleShape2D_a2165")
+
+[node name="Dialogo interno7" type="Area2D" parent="." unique_id=406808674]
+script = ExtResource("16_hgq8r")
+thoughts = Array[String](["Como assim!!ALVA?
+Sinto que estou mais forte, que magia é essa?"])
+thought_portrait = ExtResource("17_yppse")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno7" unique_id=1543920808]
+position = Vector2(1305, 49)
+shape = SubResource("RectangleShape2D_a2165")
