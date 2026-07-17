@@ -12,11 +12,15 @@
 [ext_resource type="PackedScene" uid="uid://ottfn0qgw7yt" path="res://scenes/world/soldado_lança.tscn" id="5_cnao8"]
 [ext_resource type="PackedScene" uid="uid://bqk6kalnt2b8w" path="res://scenes/world/soldado_ferido.tscn" id="6_bogbu"]
 [ext_resource type="PackedScene" uid="uid://dv4shjlpvtx0u" path="res://scenes/world/soldado_mago.tscn" id="6_rl7t5"]
+[ext_resource type="Texture2D" uid="uid://d4e01suvlrq0" path="res://assets/portraits/feira.png" id="11_waw0w"]
 [ext_resource type="PackedScene" uid="uid://ctah012rrktus" path="res://scenes/ui/dialogue_box.tscn" id="13_4cpin"]
+[ext_resource type="Texture2D" uid="uid://32kk8xgwhkke" path="res://assets/portraits/mago.png" id="13_037uo"]
 [ext_resource type="Script" uid="uid://dc008uenlxnsp" path="res://scripts/dialogue/npc_proximity_dialogue.gd" id="13_qk2x5"]
 [ext_resource type="Texture2D" uid="uid://bmonlemmgp8uo" path="res://assets/portraits/soldado_lança.png" id="14_hgq8r"]
 [ext_resource type="Script" uid="uid://cwbrdapdi5oj" path="res://scripts/dialogue/internal_dialogue_trigger.gd" id="16_hgq8r"]
 [ext_resource type="Texture2D" uid="uid://co0sq3tdrwdve" path="res://assets/portraits/himmel.png" id="17_yppse"]
+[ext_resource type="PackedScene" uid="uid://do6oigu2wpuq6" path="res://scenes/battle/battle_screen.tscn" id="20_037uo"]
+[ext_resource type="PackedScene" uid="uid://lgcxruvkeyha" path="res://scenes/world/interactables/enemy_trigger.tscn" id="21_sdd8o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4cpin"]
 texture = ExtResource("2_jharw")
@@ -1118,7 +1122,7 @@ layer_0/tile_data = PackedInt32Array(327688, 0, 5, -196601, 0, 5, 21, 0, 5, -655
 
 [node name="Player" parent="." unique_id=2104001413 instance=ExtResource("2_t66qn")]
 z_index = 1
-position = Vector2(48, 42)
+position = Vector2(1649, 39)
 
 [node name="HUD" parent="." unique_id=793533406 instance=ExtResource("4_t66qn")]
 
@@ -1126,16 +1130,46 @@ position = Vector2(48, 42)
 scale = Vector2(0.06, 0.06)
 
 [node name="soldado lança3" parent="npcs" unique_id=579283354 instance=ExtResource("5_5ktmr")]
-position = Vector2(22383.334, 966.6666)
+position = Vector2(19350, 333.33334)
 scale = Vector2(0.99999994, 0.99999994)
+
+[node name="DialogueTrigger" type="Area2D" parent="npcs/soldado lança3" unique_id=1673860678]
+script = ExtResource("13_qk2x5")
+npc_name = "Santa"
+npc_portrait = ExtResource("11_waw0w")
+dialogue_texts = Array[String](["Magias santas parecem fazer mais efeito mas eu não consegui chegar perto"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="npcs/soldado lança3/DialogueTrigger" unique_id=692621049]
+position = Vector2(-146.66504, 416.6668)
+shape = SubResource("RectangleShape2D_piedb")
 
 [node name="soldado ferido" parent="npcs" unique_id=851536717 instance=ExtResource("6_rl7t5")]
-position = Vector2(22150, 616.6666)
+position = Vector2(18966.668, 166.66667)
 scale = Vector2(0.99999994, 0.99999994)
 
+[node name="DialogueTrigger" type="Area2D" parent="npcs/soldado ferido" unique_id=137308674]
+script = ExtResource("13_qk2x5")
+npc_name = "Mago Mestre"
+npc_portrait = ExtResource("13_037uo")
+dialogue_texts = Array[String](["Guerreiro, não passe daqui, não sabemos oque é aquilo", " é magia antiga, eu mesmo não consegui fazer nada"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="npcs/soldado ferido/DialogueTrigger" unique_id=1451889006]
+position = Vector2(-146.66504, 416.6668)
+shape = SubResource("RectangleShape2D_piedb")
+
 [node name="soldado lança2" parent="npcs" unique_id=51946062 instance=ExtResource("6_bogbu")]
-position = Vector2(18766.664, -183.33342)
+position = Vector2(14900.001, -916.6667)
 scale = Vector2(0.99999994, 0.99999994)
+
+[node name="DialogueTrigger" type="Area2D" parent="npcs/soldado lança2" unique_id=817203112]
+script = ExtResource("13_qk2x5")
+npc_name = "Soldado Ferido"
+npc_portrait = ExtResource("14_hgq8r")
+dialogue_texts = Array[String](["Himmel!! algo me atacou, eu não consegui fazer nada alem de fugir, só consegui ver um clarão, parecia magia!!"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="npcs/soldado lança2/DialogueTrigger" unique_id=880740724]
+position = Vector2(-146.66504, 416.6668)
+shape = SubResource("RectangleShape2D_piedb")
 
 [node name="soldado lança4" parent="npcs" unique_id=1841244776 instance=ExtResource("5_cnao8")]
 position = Vector2(400, -366.66666)
@@ -1157,10 +1191,18 @@ shape = SubResource("RectangleShape2D_piedb")
 
 [node name="DialogueBox" parent="." unique_id=1466711927 instance=ExtResource("13_4cpin")]
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1377450233]
+[node name="Dialogo interno" type="Area2D" parent="." unique_id=1377450233]
 script = ExtResource("16_hgq8r")
+thoughts = Array[String](["Esse vale está emanando uma energia entranha...", "Não consigo sentir a presença mágica da Alva por aqui, oque está acontecendo?", "Bom, vou continuar com a missão e investigar."])
 thought_portrait = ExtResource("17_yppse")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1763531949]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno" unique_id=1763531949]
 position = Vector2(533, 48)
 shape = SubResource("RectangleShape2D_a2165")
+
+[node name="BattleScreen" parent="." unique_id=1981258681 instance=ExtResource("20_037uo")]
+
+[node name="Enemies" type="Node2D" parent="." unique_id=990008099]
+
+[node name="ShadowCreature" parent="Enemies" unique_id=463520099 instance=ExtResource("21_sdd8o")]
+position = Vector2(1689.0001, 27)
