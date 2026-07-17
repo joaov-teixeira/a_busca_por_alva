@@ -6,6 +6,8 @@
 [node name="BattleScreen" type="CanvasLayer" unique_id=1981258681]
 layer = 30
 script = ExtResource("1_jxgni")
+player_hit_chance = 0.85
+player_critical_chance = 0.1
 
 [node name="Root" type="Control" parent="." unique_id=1894302233]
 layout_mode = 3
