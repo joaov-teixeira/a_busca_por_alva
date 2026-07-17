@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://d1f31bdctf3l6" path="res://assets/portraits/rei.png" id="10_tikb2"]
 [ext_resource type="Script" uid="uid://nqcb6j8sbwax" path="res://scripts/map/level_exit.gd" id="11_tikb2"]
 [ext_resource type="Script" uid="uid://dtm1uunj6n1tg" path="res://scenes/map/dialogue_trigger.gd" id="13_hgex6"]
+[ext_resource type="PackedScene" uid="uid://ctah012rrktus" path="res://scenes/ui/dialogue_box.tscn" id="14_wdfu6"]
+[ext_resource type="PackedScene" uid="uid://d3p3hs62mp35l" path="res://scenes/ui/hud.tscn" id="15_rro3j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jtwau"]
 size = Vector2(753, 113)
@@ -29,8 +31,9 @@ size = Vector2(273.33447, 11016.668)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_feyuw"]
 size = Vector2(148.5, 518)
 
-[node name="level" type="Node2D" unique_id=1844401856]
+[node name="SecondLevel" type="Node2D" unique_id=1844401856]
 script = ExtResource("1_feyuw")
+next_scene_path = "uid://c8g1risygd0tf"
 
 [node name="Terrain" parent="." unique_id=1047749139 instance=ExtResource("1_0x6a1")]
 position = Vector2(0, 1)
@@ -119,3 +122,7 @@ script = ExtResource("13_hgex6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTrigger" unique_id=1928640163]
 position = Vector2(31.75, -39)
 shape = SubResource("RectangleShape2D_feyuw")
+
+[node name="DialogueBox" parent="." unique_id=1466711927 instance=ExtResource("14_wdfu6")]
+
+[node name="HUD" parent="." unique_id=793533406 instance=ExtResource("15_rro3j")]

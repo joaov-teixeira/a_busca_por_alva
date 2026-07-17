@@ -16,11 +16,12 @@ var changing_scene: bool = false
 
 
 func _ready() -> void:
-	# Aguarda todos os filhos executarem seus próprios _ready().
+	find_map_nodes()
+	connect_dialogue_box_signal()
+
+	# Aguarda os gatilhos entrarem em seus grupos.
 	await get_tree().process_frame
 
-	find_required_nodes()
-	connect_dialogue_box_signal()
 	connect_dialogue_triggers()
 	connect_level_exits()
 
@@ -29,11 +30,12 @@ func _ready() -> void:
 # LOCALIZAÇÃO DOS NÓS
 # =========================================================
 
-func find_required_nodes() -> void:
-	player = (
-		get_tree().get_first_node_in_group("player")
-		as CharacterBody2D
-	)
+func find_map_nodes() -> void:
+	player = find_child(
+		"Player",
+		true,
+		false
+	) as CharacterBody2D
 
 	hud = find_child(
 		"HUD",
@@ -49,17 +51,23 @@ func find_required_nodes() -> void:
 
 	if player == null:
 		push_error(
-			"Player não encontrado no grupo player."
+			"Player não encontrado no segundo mapa."
 		)
 	else:
-		print("Player encontrado: ", player.get_path())
+		print(
+			"Player encontrado: ",
+			player.get_path()
+		)
 
 	if hud == null:
 		push_warning(
 			"HUD não encontrada no segundo mapa."
 		)
 	else:
-		print("HUD encontrada: ", hud.get_path())
+		print(
+			"HUD encontrada: ",
+			hud.get_path()
+		)
 
 	if dialogue_box == null:
 		push_error(
@@ -73,7 +81,7 @@ func find_required_nodes() -> void:
 
 
 # =========================================================
-# DIÁLOGO
+# DIALOGUE BOX
 # =========================================================
 
 func connect_dialogue_box_signal() -> void:
@@ -84,7 +92,7 @@ func connect_dialogue_box_signal() -> void:
 		"dialogue_finished"
 	):
 		push_error(
-			"DialogueBox não possui dialogue_finished."
+			"DialogueBox não possui o sinal dialogue_finished."
 		)
 		return
 
@@ -103,6 +111,10 @@ func connect_dialogue_box_signal() -> void:
 		)
 
 
+# =========================================================
+# GATILHOS DE DIÁLOGO
+# =========================================================
+
 func connect_dialogue_triggers() -> void:
 	var triggers: Array[Node] = (
 		get_tree().get_nodes_in_group(
@@ -111,7 +123,7 @@ func connect_dialogue_triggers() -> void:
 	)
 
 	print(
-		"Triggers encontrados no mapa 2: ",
+		"Triggers de diálogo encontrados: ",
 		triggers.size()
 	)
 
@@ -141,7 +153,7 @@ func connect_dialogue_triggers() -> void:
 			)
 
 		print(
-			"DialogueTrigger conectado: ",
+			"Trigger conectado: ",
 			trigger.get_path()
 		)
 
@@ -150,9 +162,9 @@ func _on_dialogue_requested(
 	lines: Array
 ) -> void:
 	print(
-		"Pedido de diálogo recebido: ",
+		"Diálogo recebido com ",
 		lines.size(),
-		" linhas."
+		" falas."
 	)
 
 	if changing_scene:
@@ -176,7 +188,15 @@ func _on_dialogue_requested(
 
 	if lines.is_empty():
 		push_warning(
-			"O diálogo não possui linhas."
+			"O diálogo recebido está vazio."
+		)
+		return
+
+	if not dialogue_box.has_method(
+		"start_dialogue"
+	):
+		push_error(
+			"DialogueBox não possui start_dialogue()."
 		)
 		return
 
@@ -211,7 +231,7 @@ func connect_level_exits() -> void:
 	)
 
 	print(
-		"LevelExits encontrados no mapa 2: ",
+		"Saídas encontradas no mapa 2: ",
 		exits.size()
 	)
 
@@ -241,26 +261,26 @@ func connect_level_exits() -> void:
 			)
 
 		print(
-			"LevelExit conectado: ",
+			"Saída conectada: ",
 			level_exit.get_path()
 		)
 
 
 func _on_level_exit_requested() -> void:
-	print("Saída do mapa 2 ativada.")
-
 	if changing_scene:
 		return
 
 	if next_scene_path.is_empty():
 		push_error(
-			"O caminho do terceiro mapa está vazio."
+			"O caminho da próxima cena está vazio."
 		)
 		return
 
-	if not ResourceLoader.exists(next_scene_path):
+	if not ResourceLoader.exists(
+		next_scene_path
+	):
 		push_error(
-			"O terceiro mapa não existe: "
+			"A próxima cena não existe: "
 			+ next_scene_path
 		)
 		return
