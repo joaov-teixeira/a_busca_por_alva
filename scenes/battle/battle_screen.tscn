@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://do6oigu2wpuq6"]
 
 [ext_resource type="Script" uid="uid://c7c20bwkiddw3" path="res://scripts/battle/battle_screen.gd" id="1_jxgni"]
+[ext_resource type="Texture2D" uid="uid://v24fm628h6sc" path="res://assets/sprites/battle1.png" id="2_g0k2o"]
 
 [node name="BattleScreen" type="CanvasLayer" unique_id=1981258681]
+layer = 30
 script = ExtResource("1_jxgni")
 
 [node name="Root" type="Control" parent="." unique_id=1894302233]
@@ -12,6 +14,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ColorRect" type="TextureRect" parent="Root" unique_id=496293735]
+layout_mode = 0
+offset_left = -155.0
+offset_top = -83.0
+offset_right = 1303.0
+offset_bottom = 817.0
+texture = ExtResource("2_g0k2o")
+expand_mode = 1
 
 [node name="Panel" type="Panel" parent="Root" unique_id=2033920341]
 layout_mode = 1
@@ -44,15 +55,25 @@ layout_mode = 2
 text = "Batalha"
 horizontal_alignment = 1
 
+[node name="EnemyHPBar" type="ProgressBar" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=1851882800]
+layout_mode = 2
+
 [node name="EnemyHPLabel" type="Label" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=1093568362]
 layout_mode = 2
 text = "Sombra Corrompida HP: 3/3"
 horizontal_alignment = 1
 
+[node name="PlayerHPLabel" type="Label" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=959374411]
+layout_mode = 2
+text = "Sombra Corrompida HP: 3/3"
+horizontal_alignment = 1
+
 [node name="BattleLogLabel" type="Label" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=26298471]
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 text = "Uma sombra bloqueia seu caminho."
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="ActionsContainer" type="HBoxContainer" parent="Root/Panel/MarginContainer/VBoxContainer" unique_id=137746028]
 layout_mode = 2

@@ -13,6 +13,7 @@ var ultima_direcao: Vector2 = Vector2.DOWN
 
 
 func _ready() -> void:
+	add_to_group("player")
 	sprite.play("idle_down")
 
 
