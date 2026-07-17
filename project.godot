@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="a_busca_por_alva"
-run/main_scene="uid://cx33wq6fei05b"
+run/main_scene="uid://cqecei75grqdr"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SceneTransition="*uid://d4bopo6j1w8ig"
+MusicManager="*uid://duubb0enxqp8q"
 
 [display]
 

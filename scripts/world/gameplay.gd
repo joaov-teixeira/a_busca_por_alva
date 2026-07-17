@@ -90,7 +90,14 @@ func _on_courage_depleted() -> void:
 func _on_alva_clue_collected() -> void:
 	has_alva_clue = true
 	hud.increase_courage(15)
-	hud.show_message("Pista de Alva coletada. Uma runa aponta para o altar verdadeiro.")
+
+	if true_altar != null:
+		true_altar.show_clue_highlight()
+
+	if false_altar != null:
+		false_altar.modulate = Color(0.6, 0.6, 0.6, 1.0)
+
+	hud.show_message("Pista de Alva coletada. A runa lilás aponta para o altar verdadeiro.")
 
 	print("Estado atualizado: has_alva_clue = true")
 
