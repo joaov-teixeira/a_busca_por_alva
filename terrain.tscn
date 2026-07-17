@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://u4g8k8gy0806" path="res://assets/base_terrain/plains.png" id="2_avahw"]
 [ext_resource type="Texture2D" uid="uid://bxs6dge48qbul" path="res://assets/base_terrain/decor_16x16.png" id="3_n7k1k"]
 [ext_resource type="Texture2D" uid="uid://dtf4l1tdriaju" path="res://assets/base_terrain/fences.png" id="4_iqhxt"]
+[ext_resource type="Texture2D" uid="uid://m12nfdm7bie2" path="res://assets/floors/gray.png" id="5_iqhxt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n7k1k"]
 resource_name = "grass"
@@ -458,6 +459,10 @@ texture = ExtResource("4_iqhxt")
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 3:3/0/terrains_peering_bit/left_side = 2
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2lqh"]
+texture = ExtResource("5_iqhxt")
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_a8ku5"]
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
@@ -471,6 +476,7 @@ sources/0 = SubResource("TileSetAtlasSource_n7k1k")
 sources/1 = SubResource("TileSetAtlasSource_iqhxt")
 sources/2 = SubResource("TileSetAtlasSource_e1kr5")
 sources/3 = SubResource("TileSetAtlasSource_3shck")
+sources/4 = SubResource("TileSetAtlasSource_h2lqh")
 
 [node name="Terrain" type="TileMap" unique_id=1047749139]
 tile_set = SubResource("TileSet_a8ku5")
