@@ -11,8 +11,30 @@ signal battle_requested(enemy: BattleEnemy)
 @export_range(1, 99, 1)
 var max_hp: int = 5
 
+# A vida real será max_hp ± hp_variation.
+@export_range(0, 10, 1)
+var hp_variation: int = 1
+
 @export_range(0, 20, 1)
-var attack_damage: int = 1
+var min_attack_damage: int = 1
+
+@export_range(0, 20, 1)
+var max_attack_damage: int = 1
+
+@export_range(0.0, 1.0, 0.05)
+var hit_chance: float = 0.80
+
+@export_range(0.0, 1.0, 0.05)
+var critical_chance: float = 0.05
+
+@export_range(0.0, 1.0, 0.05)
+var heavy_attack_chance: float = 0.15
+
+@export_range(0, 10, 1)
+var heavy_bonus_damage: int = 1
+
+@export_range(0.0, 1.0, 0.05)
+var heavy_accuracy_penalty: float = 0.20
 
 @export_range(0, 100, 1)
 var courage_reward: int = 10
@@ -41,9 +63,6 @@ var trigger_locked: bool = false
 
 func _ready() -> void:
 	add_to_group("battle_enemies")
-
-	print("Inimigo carregado: ", name)
-	print("BattleTrigger encontrado: ", battle_trigger)
 
 	configure_animation()
 	configure_battle_trigger()
@@ -87,8 +106,7 @@ func configure_animation() -> void:
 func configure_battle_trigger() -> void:
 	if battle_trigger == null:
 		push_error(
-			"BattleTrigger não encontrado em "
-			+ str(get_path())
+			"BattleTrigger não encontrado no inimigo."
 		)
 		return
 
@@ -102,32 +120,18 @@ func configure_battle_trigger() -> void:
 			_on_battle_trigger_body_entered
 		)
 
-	print("BattleTrigger configurado com sucesso.")
-
 
 func _on_battle_trigger_body_entered(
 	body: Node2D
 ) -> void:
-	print(
-		"Corpo entrou no BattleTrigger: ",
-		body.name
-	)
-
 	if defeated:
-		print("Inimigo já derrotado.")
 		return
 
 	if trigger_locked:
-		print("Trigger está bloqueado.")
 		return
 
 	if not body.is_in_group("player"):
-		print(
-			"O corpo detectado não pertence ao grupo player."
-		)
 		return
-
-	print("Player detectado. Solicitando batalha.")
 
 	trigger_locked = true
 

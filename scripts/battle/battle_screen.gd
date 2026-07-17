@@ -5,6 +5,31 @@ signal battle_fled
 signal player_damaged(amount: int)
 signal player_defeated
 
+
+@export_category("Player Combat")
+
+@export_range(1, 20, 1)
+var player_min_damage: int = 1
+
+@export_range(1, 20, 1)
+var player_max_damage: int = 2
+
+@export_range(0.0, 1.0, 0.05)
+var player_hit_chance: float = 0.90
+
+@export_range(0.0, 1.0, 0.05)
+var player_critical_chance: float = 0.15
+
+@export_range(1, 5, 1)
+var critical_multiplier: int = 2
+
+@export_range(0, 20, 1)
+var defense_reduction: int = 1
+
+@export_range(0.0, 1.0, 0.05)
+var flee_chance: float = 0.50
+
+
 @onready var root: Control = $Root
 
 @onready var title_label: Label = (
@@ -42,6 +67,9 @@ signal player_defeated
 	ActionsContainer/FleeButton
 )
 
+
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+
 var current_enemy: BattleEnemy = null
 
 var enemy_hp: int = 0
@@ -56,11 +84,21 @@ var action_locked: bool = false
 
 
 func _ready() -> void:
+	rng.randomize()
+
 	root.visible = false
 
-	attack_button.pressed.connect(_on_attack_pressed)
-	defend_button.pressed.connect(_on_defend_pressed)
-	flee_button.pressed.connect(_on_flee_pressed)
+	attack_button.pressed.connect(
+		_on_attack_pressed
+	)
+
+	defend_button.pressed.connect(
+		_on_defend_pressed
+	)
+
+	flee_button.pressed.connect(
+		_on_flee_pressed
+	)
 
 
 func start_battle(
@@ -73,7 +111,17 @@ func start_battle(
 
 	current_enemy = enemy
 
-	enemy_max_hp = enemy.max_hp
+	# A vida do inimigo varia a cada batalha.
+	var hp_offset: int = rng.randi_range(
+		-enemy.hp_variation,
+		enemy.hp_variation
+	)
+
+	enemy_max_hp = max(
+		1,
+		enemy.max_hp + hp_offset
+	)
+
 	enemy_hp = enemy_max_hp
 
 	player_hp = current_player_hp
@@ -85,9 +133,13 @@ func start_battle(
 
 	root.visible = true
 
-	title_label.text = "BATALHA — " + enemy.enemy_name
+	title_label.text = (
+		"BATALHA — " + enemy.enemy_name
+	)
+
 	battle_log_label.text = (
-		enemy.enemy_name + " bloqueia seu caminho!"
+		enemy.enemy_name
+		+ " bloqueia seu caminho!"
 	)
 
 	update_interface()
@@ -103,18 +155,48 @@ func _on_attack_pressed() -> void:
 	action_locked = true
 	set_buttons_enabled(false)
 
-	var damage: int = randi_range(1, 2)
+	# Teste de acerto.
+	if rng.randf() > player_hit_chance:
+		battle_log_label.text = (
+			"Você atacou, mas errou o golpe!"
+		)
 
-	enemy_hp = max(0, enemy_hp - damage)
+		await enemy_turn()
+		return
 
-	battle_log_label.text = (
-		"Você atacou e causou %d de dano." % damage
+	var damage: int = rng.randi_range(
+		player_min_damage,
+		player_max_damage
 	)
+
+	var critical: bool = (
+		rng.randf() < player_critical_chance
+	)
+
+	if critical:
+		damage *= critical_multiplier
+
+	enemy_hp = max(
+		0,
+		enemy_hp - damage
+	)
+
+	if critical:
+		battle_log_label.text = (
+			"Golpe crítico! Você causou %d de dano."
+			% damage
+		)
+	else:
+		battle_log_label.text = (
+			"Você causou %d de dano."
+			% damage
+		)
 
 	update_interface()
 
 	if enemy_hp <= 0:
 		await get_tree().create_timer(0.7).timeout
+
 		finish_with_victory()
 		return
 
@@ -144,10 +226,27 @@ func _on_flee_pressed() -> void:
 	action_locked = true
 	set_buttons_enabled(false)
 
-	var escaped: bool = randf() < 0.50
+	var current_flee_chance: float = flee_chance
+
+	# Quando estiver com apenas um coração,
+	# a chance de fuga aumenta.
+	if player_hp <= 1:
+		current_flee_chance += 0.15
+
+	current_flee_chance = clampf(
+		current_flee_chance,
+		0.0,
+		0.90
+	)
+
+	var escaped: bool = (
+		rng.randf() < current_flee_chance
+	)
 
 	if escaped:
-		battle_log_label.text = "Você conseguiu fugir."
+		battle_log_label.text = (
+			"Você conseguiu fugir."
+		)
 
 		await get_tree().create_timer(0.7).timeout
 
@@ -165,34 +264,105 @@ func _on_flee_pressed() -> void:
 func enemy_turn() -> void:
 	await get_tree().create_timer(0.8).timeout
 
-	if current_enemy == null:
+	if not is_instance_valid(current_enemy):
 		return
 
-	var defense_reduction: int = 0
+	var heavy_attack: bool = (
+		rng.randf()
+		< current_enemy.heavy_attack_chance
+	)
+
+	var current_hit_chance: float = (
+		current_enemy.hit_chance
+	)
+
+	if heavy_attack:
+		current_hit_chance -= (
+			current_enemy.heavy_accuracy_penalty
+		)
+
+	current_hit_chance = clampf(
+		current_hit_chance,
+		0.05,
+		1.0
+	)
+
+	# O inimigo pode errar.
+	if rng.randf() > current_hit_chance:
+		if heavy_attack:
+			battle_log_label.text = (
+				current_enemy.enemy_name
+				+ " tentou um ataque pesado, mas errou!"
+			)
+		else:
+			battle_log_label.text = (
+				current_enemy.enemy_name
+				+ " atacou, mas errou!"
+			)
+
+		defending = false
+		unlock_player_actions()
+		return
+
+	var damage: int = rng.randi_range(
+		current_enemy.min_attack_damage,
+		current_enemy.max_attack_damage
+	)
+
+	if heavy_attack:
+		damage += current_enemy.heavy_bonus_damage
+
+	var critical: bool = (
+		rng.randf()
+		< current_enemy.critical_chance
+	)
+
+	if critical:
+		damage *= critical_multiplier
 
 	if defending:
-		defense_reduction = 1
-
-	var damage: int = max(
-		0,
-		current_enemy.attack_damage - defense_reduction
-	)
+		damage = max(
+			0,
+			damage - defense_reduction
+		)
 
 	defending = false
 
-	if damage > 0:
-		player_hp = max(0, player_hp - damage)
-
-		battle_log_label.text = (
-			"%s atacou e causou %d de dano."
-			% [current_enemy.enemy_name, damage]
-		)
-
-		player_damaged.emit(damage)
-	else:
+	if damage <= 0:
 		battle_log_label.text = (
 			"Você bloqueou completamente o ataque!"
 		)
+
+		unlock_player_actions()
+		return
+
+	player_hp = max(
+		0,
+		player_hp - damage
+	)
+
+	if heavy_attack and critical:
+		battle_log_label.text = (
+			"Ataque pesado crítico! %s causou %d de dano."
+			% [current_enemy.enemy_name, damage]
+		)
+	elif heavy_attack:
+		battle_log_label.text = (
+			"%s usou um ataque pesado e causou %d de dano."
+			% [current_enemy.enemy_name, damage]
+		)
+	elif critical:
+		battle_log_label.text = (
+			"Golpe crítico inimigo! %s causou %d de dano."
+			% [current_enemy.enemy_name, damage]
+		)
+	else:
+		battle_log_label.text = (
+			"%s causou %d de dano."
+			% [current_enemy.enemy_name, damage]
+		)
+
+	player_damaged.emit(damage)
 
 	update_interface()
 
@@ -203,6 +373,10 @@ func enemy_turn() -> void:
 		player_defeated.emit()
 		return
 
+	unlock_player_actions()
+
+
+func unlock_player_actions() -> void:
 	action_locked = false
 	set_buttons_enabled(true)
 	attack_button.grab_focus()
@@ -234,8 +408,12 @@ func set_buttons_enabled(enabled: bool) -> void:
 
 
 func finish_with_victory() -> void:
+	if not is_instance_valid(current_enemy):
+		return
+
 	battle_log_label.text = (
-		current_enemy.enemy_name + " foi derrotado!"
+		current_enemy.enemy_name
+		+ " foi derrotado!"
 	)
 
 	await get_tree().create_timer(0.7).timeout
@@ -246,6 +424,7 @@ func finish_with_victory() -> void:
 
 func close_battle() -> void:
 	root.visible = false
+
 	battle_active = false
 	action_locked = false
 	defending = false
