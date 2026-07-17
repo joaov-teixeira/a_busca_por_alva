@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://do6oigu2wpuq6" path="res://scenes/battle/battle_screen.tscn" id="20_037uo"]
 [ext_resource type="PackedScene" uid="uid://lgcxruvkeyha" path="res://scenes/world/interactables/enemy_trigger.tscn" id="21_sdd8o"]
 [ext_resource type="Texture2D" uid="uid://dgxwxt48dl3f7" path="res://assets/portraits/alva.png" id="24_vvnti"]
+[ext_resource type="Script" uid="uid://nqcb6j8sbwax" path="res://scripts/map/level_exit.gd" id="25_k7u8g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4cpin"]
 texture = ExtResource("2_jharw")
@@ -1105,6 +1106,9 @@ size = Vector2(273.33447, 2600.0005)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a2165"]
 size = Vector2(14.875, 151)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s5v08"]
+size = Vector2(44, 51)
+
 [node name="initial_level" type="Node2D" unique_id=1844401856]
 z_index = 5
 script = ExtResource("1_5hjry")
@@ -1222,6 +1226,7 @@ shape = SubResource("RectangleShape2D_a2165")
 
 [node name="ShadowCreature" parent="Enemies" unique_id=463520099 instance=ExtResource("21_sdd8o")]
 position = Vector2(1689.0001, 27)
+attack_damage = 3
 
 [node name="Dialogo interno2" type="Area2D" parent="." unique_id=1198073317]
 script = ExtResource("16_hgq8r")
@@ -1280,3 +1285,11 @@ thought_portrait = ExtResource("17_yppse")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno7" unique_id=1543920808]
 position = Vector2(1305, 49)
 shape = SubResource("RectangleShape2D_a2165")
+
+[node name="LevelExit" type="Area2D" parent="." unique_id=23574441]
+position = Vector2(1689, 27)
+script = ExtResource("25_k7u8g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelExit" unique_id=305386964]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_s5v08")

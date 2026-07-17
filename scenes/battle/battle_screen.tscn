@@ -16,7 +16,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="TextureRect" parent="Root" unique_id=496293735]
-visible = false
 layout_mode = 0
 offset_left = -77.0
 offset_top = -83.0

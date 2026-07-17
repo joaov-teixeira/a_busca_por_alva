@@ -39,10 +39,47 @@ func _ready() -> void:
 	connect_dialogue_triggers()
 	connect_battle_enemies()
 	connect_degenerated_areas()
-
+	connect_level_exits()
 # =========================================================
 # CONEXÃO DOS SINAIS PRINCIPAIS
 # =========================================================
+func connect_level_exits() -> void:
+	var exits: Array[Node] = get_tree().get_nodes_in_group(
+		"level_exits"
+	)
+
+	print("Saídas encontradas: ", exits.size())
+
+	for node: Node in exits:
+		if not node is LevelExit:
+			continue
+
+		var level_exit: LevelExit = node
+
+		if not level_exit.level_exit_requested.is_connected(
+			_on_level_exit_requested
+		):
+			level_exit.level_exit_requested.connect(
+				_on_level_exit_requested
+			)
+			
+func _on_level_exit_requested() -> void:
+	if defeat_in_progress:
+		return
+
+	if battle_active:
+		return
+
+	if dialogue_active:
+		return
+
+	player.set_can_move(false)
+	hud.visible = false
+
+	SceneTransition.change_scene(
+		"res://scenes/ui/level_complete.tscn"
+	)
+	
 func connect_degenerated_areas() -> void:
 	var areas: Array[Node] = get_tree().get_nodes_in_group(
 		"degenerated_areas"
@@ -343,25 +380,18 @@ func _on_battle_fled() -> void:
 		2.0
 	)
 
-
 func _on_player_defeated() -> void:
 	if defeat_in_progress:
 		return
 
 	defeat_in_progress = true
 	battle_active = false
+	dialogue_active = false
 	current_enemy = null
 
-	hud.visible = true
 	player.set_can_move(false)
-
-	hud.show_message(
-		"Você foi derrotado...",
-		2.0
-	)
-
-	await get_tree().create_timer(2.0).timeout
+	hud.visible = false
 
 	SceneTransition.change_scene(
-		"res://scenes/map/initial_level.tscn"
+		"res://scenes/ui/game_over.tscn"
 	)

@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://8jc2wjk7ryxp"]
+
+[ext_resource type="Script" uid="uid://xxdboehnrmt1" path="res://scripts/ui/level_complete.gd" id="1_aq2sf"]
+[ext_resource type="Texture2D" uid="uid://dkm1fll486v27" path="res://assets/sprites/nextlevel.png" id="2_j5qh7"]
+
+[node name="LevelComplete" type="Control" unique_id=1376411264]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aq2sf")
+next_level_path = "uid://dp806hyl2mq5w"
+
+[node name="Background" type="TextureRect" parent="." unique_id=2089417360]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -463.0
+offset_right = -2.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("2_j5qh7")
+expand_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=611548451]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer" unique_id=434411796]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel" unique_id=254924086]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="CenterContainer/Panel/Margin" unique_id=1646708118]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/Margin/Content" unique_id=331115502]
+layout_mode = 2
+text = "FASE CONCLUÍDA"
+horizontal_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="CenterContainer/Panel/Margin/Content" unique_id=543565458]
+layout_mode = 2
+text = "O caminho foi revelado."
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/Panel/Margin/Content" unique_id=1396403152]
+layout_mode = 2
+text = "Continuar"
+
+[node name="MainMenuButton" type="Button" parent="CenterContainer/Panel/Margin/Content" unique_id=244280454]
+layout_mode = 2
+text = "Voltar ao menu"

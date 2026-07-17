@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bnq37twsjckaj"]
+
+[ext_resource type="Script" uid="uid://k22jdxryaol6" path="res://scripts/ui/game_over.gd" id="1_60xr3"]
+[ext_resource type="Texture2D" uid="uid://cqceybqlfk5lp" path="res://assets/sprites/gameover.png" id="2_fu4wh"]
+
+[node name="GameOver" type="Control" unique_id=1376411264]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_60xr3")
+
+[node name="Background" type="TextureRect" parent="." unique_id=2089417360]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -774.0
+offset_right = 8.0
+offset_bottom = 551.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("2_fu4wh")
+expand_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=611548451]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer" unique_id=434411796]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel" unique_id=254924086]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="CenterContainer/Panel/Margin" unique_id=1646708118]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/Margin/Content" unique_id=331115502]
+layout_mode = 2
+text = "VOCÊ FOI DERROTADO"
+horizontal_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="CenterContainer/Panel/Margin/Content" unique_id=543565458]
+layout_mode = 2
+text = "A escuridão consumiu toda a sua coragem."
+
+[node name="RetryButton" type="Button" parent="CenterContainer/Panel/Margin/Content" unique_id=1396403152]
+layout_mode = 2
+text = "Tentar novamente"
+
+[node name="MainMenuButton" type="Button" parent="CenterContainer/Panel/Margin/Content" unique_id=244280454]
+layout_mode = 2
+text = "Voltar ao menu"
