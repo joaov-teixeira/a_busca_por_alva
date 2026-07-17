@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://uppp4oiktvut" path="res://assets/tilesets/timefantasy_tiles/water.png" id="2_jharw"]
 [ext_resource type="PackedScene" uid="uid://bi63fxavagocj" path="res://scenes/player/player.tscn" id="2_t66qn"]
 [ext_resource type="Texture2D" uid="uid://f0dh8ioy13wj" path="res://assets/tilesets/timefantasy_tiles/dungeon.png" id="3_3x7cy"]
-[ext_resource type="PackedScene" uid="uid://rmfjueulxy3m" path="res://scenes/world/objects_terrain.tscn" id="3_cnao8"]
+[ext_resource type="PackedScene" uid="uid://rmfjueulxy3m" path="res://objects_terrain.tscn" id="3_cnao8"]
 [ext_resource type="Texture2D" uid="uid://bbqe3jcxi6mbl" path="res://assets/tilesets/Cliff/Cliff Dry 64X64.png" id="4_5hjry"]
 [ext_resource type="PackedScene" uid="uid://d3p3hs62mp35l" path="res://scenes/ui/hud.tscn" id="4_t66qn"]
 [ext_resource type="PackedScene" uid="uid://bpfgfrwwsiqyl" path="res://scenes/world/santa.tscn" id="5_5ktmr"]
@@ -1167,7 +1167,7 @@ scale = Vector2(0.99999994, 0.99999994)
 script = ExtResource("13_qk2x5")
 npc_name = "Mago Mestre"
 npc_portrait = ExtResource("13_037uo")
-dialogue_texts = Array[String](["Guerreiro, não passe daqui, não sabemos oque é aquilo", " é magia antiga, eu mesmo não consegui fazer nada"])
+dialogue_texts = Array[String](["Guerreiro, não passe daqui, não sabemos o que é aquilo", " é magia antiga, eu mesmo não consegui fazer nada."])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="npcs/soldado ferido/DialogueTrigger" unique_id=1451889006]
 position = Vector2(-146.66504, 416.6668)
@@ -1181,7 +1181,7 @@ scale = Vector2(0.99999994, 0.99999994)
 script = ExtResource("13_qk2x5")
 npc_name = "Soldado Ferido"
 npc_portrait = ExtResource("16_xtusm")
-dialogue_texts = Array[String](["Himmel!! algo me atacou, eu não consegui fazer nada alem de fugir, só consegui ver um clarão, parecia magia!!"])
+dialogue_texts = Array[String](["Himmel!! Algo me atacou, eu não consegui fazer nada alem de fugir, só consegui ver um clarão, parecia magia!!"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="npcs/soldado lança2/DialogueTrigger" unique_id=880740724]
 position = Vector2(-146.66504, 416.6668)
@@ -1199,7 +1199,7 @@ scale = Vector2(0.9999999, 0.9999999)
 script = ExtResource("13_qk2x5")
 npc_name = "Soldado"
 npc_portrait = ExtResource("14_hgq8r")
-dialogue_texts = Array[String](["Olá, Himmel, Há quanto tempo!", "O alvo da nossa missão está logo ali mas a floresta está estranha, tome cuidado", "Alguns guerreiros já passaram por mim e não retornaram ainda!"])
+dialogue_texts = Array[String](["Olá, Himmel. Há quanto tempo!", "O alvo da nossa missão está logo ali mas a floresta está estranha, tome cuidado", "Alguns guerreiros já passaram por mim e não retornaram ainda!"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="npcs/soldado MSG/DialogueTrigger" unique_id=587884731]
 position = Vector2(-146.66504, 416.6668)
@@ -1209,7 +1209,7 @@ shape = SubResource("RectangleShape2D_piedb")
 
 [node name="Dialogo interno" type="Area2D" parent="." unique_id=1377450233]
 script = ExtResource("16_hgq8r")
-thoughts = Array[String](["Esse vale está emanando uma energia entranha...", "Não consigo sentir a presença mágica da Alva por aqui, oque está acontecendo?", "Bom, vou continuar com a missão e investigar."])
+thoughts = Array[String](["Esse vale está emanando uma energia estranha...", "Não consigo sentir a presença mágica da Alva por aqui, o que está acontecendo?", "Bom, vou continuar com a missão e investigar."])
 thought_portrait = ExtResource("17_yppse")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno" unique_id=1763531949]
@@ -1225,7 +1225,7 @@ position = Vector2(1689.0001, 27)
 
 [node name="Dialogo interno2" type="Area2D" parent="." unique_id=1198073317]
 script = ExtResource("16_hgq8r")
-thoughts = Array[String](["Magia aqui? não era para ser possível..."])
+thoughts = Array[String](["Magia aqui? Não era para ser possível..."])
 thought_portrait = ExtResource("17_yppse")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno2" unique_id=1156997007]
@@ -1234,7 +1234,7 @@ shape = SubResource("RectangleShape2D_a2165")
 
 [node name="Dialogo interno3" type="Area2D" parent="." unique_id=334694130]
 script = ExtResource("16_hgq8r")
-thoughts = Array[String](["Talvez eu não seja pareo para isso... sinto minha energia vital sendo drenada"])
+thoughts = Array[String](["Talvez eu não seja páreo para isso... sinto minha energia vital sendo drenada"])
 thought_portrait = ExtResource("17_yppse")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno3" unique_id=2080434184]
@@ -1243,7 +1243,7 @@ shape = SubResource("RectangleShape2D_a2165")
 
 [node name="Dialogo interno4" type="Area2D" parent="." unique_id=89926883]
 script = ExtResource("16_hgq8r")
-thoughts = Array[String](["HIMMEL! a conexão está fraca, consegue me ouvir?"])
+thoughts = Array[String](["HIMMEL! A conexão está fraca, consegue me ouvir?"])
 thought_portrait = ExtResource("24_vvnti")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno4" unique_id=777378348]
@@ -1252,7 +1252,7 @@ shape = SubResource("RectangleShape2D_a2165")
 
 [node name="Dialogo interno5" type="Area2D" parent="." unique_id=993118393]
 script = ExtResource("16_hgq8r")
-thoughts = Array[String](["ALVA??? estou sentindo sua presença, o que está acontecendo?"])
+thoughts = Array[String](["ALVA??? Estou sentindo sua presença, o que está acontecendo?"])
 thought_portrait = ExtResource("17_yppse")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Dialogo interno5" unique_id=1885135307]
@@ -1261,9 +1261,9 @@ shape = SubResource("RectangleShape2D_a2165")
 
 [node name="Dialogo interno6" type="Area2D" parent="." unique_id=931713323]
 script = ExtResource("16_hgq8r")
-thoughts = Array[String](["Eu não tenho tempo, estamos sendo atacados pelo Rei Demônio ", "vou usar minhas forças para proteger todos do Reino, vou protege-lo com minha magia para que você consiga enfrentar essa energia! ", "fique atento aos si... ????? .
+thoughts = Array[String](["Eu não tenho tempo, estamos sendo atacados pelo Rei Demônio!", "Vou usar minhas forças para proteger todos do Reino, vou ajuda-lo com minha magia pra que você consiga enfrentar essa energia! ", "Fique atento aos si... ????? 
 
-. 
+
 Himmel?"])
 thought_portrait = ExtResource("24_vvnti")
 
@@ -1273,7 +1273,7 @@ shape = SubResource("RectangleShape2D_a2165")
 
 [node name="Dialogo interno7" type="Area2D" parent="." unique_id=406808674]
 script = ExtResource("16_hgq8r")
-thoughts = Array[String](["Como assim!!ALVA?
+thoughts = Array[String](["Como assim!! ALVA?
 Sinto que estou mais forte, que magia é essa?"])
 thought_portrait = ExtResource("17_yppse")
 
