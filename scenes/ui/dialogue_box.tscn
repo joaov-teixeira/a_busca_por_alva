@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://ctah012rrktus"]
+
+[ext_resource type="Script" uid="uid://c0j8x5hjycnmf" path="res://scripts/ui/dialogue_box.gd" id="1_xg44k"]
+
+[node name="DialogueBox" type="CanvasLayer" unique_id=1466711927]
+script = ExtResource("1_xg44k")
+
+[node name="Root" type="Control" parent="." unique_id=342032922]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DialoguePanel" type="PanelContainer" parent="Root" unique_id=723793216]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -180.0
+offset_right = -17.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Root/DialoguePanel" unique_id=440813240]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="ContentContainer" type="HBoxContainer" parent="Root/DialoguePanel/MarginContainer" unique_id=1436640752]
+layout_mode = 2
+
+[node name="PortraitTexture" type="TextureRect" parent="Root/DialoguePanel/MarginContainer/ContentContainer" unique_id=481851883]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TextContainer" type="VBoxContainer" parent="Root/DialoguePanel/MarginContainer/ContentContainer" unique_id=609672462]
+custom_minimum_size = Vector2(1000, 0)
+propagate_maximum_size = false
+layout_mode = 2
+
+[node name="SpeakerLabel" type="Label" parent="Root/DialoguePanel/MarginContainer/ContentContainer/TextContainer" unique_id=75496518]
+layout_mode = 2
+text = "Soldado"
+
+[node name="DialogueLabel" type="Label" parent="Root/DialoguePanel/MarginContainer/ContentContainer/TextContainer" unique_id=617964270]
+layout_mode = 2
+text = "Texto do diálogo aparece aqui.
+"
+autowrap_mode = 2
+
+[node name="ContinueLabel" type="Label" parent="Root/DialoguePanel/MarginContainer/ContentContainer/TextContainer" unique_id=381843371]
+layout_mode = 2
+text = "E / Enter — continuar"
+horizontal_alignment = 2

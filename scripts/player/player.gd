@@ -1,44 +1,71 @@
 extends CharacterBody2D
 
-@export var move_speed: float = 55.0
+@export var velocidade: float = 140.0
 
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+# Controla se o jogador pode se mover ou não.
 var can_move: bool = true
-var facing_direction: Vector2 = Vector2.DOWN
+
+# Direção usada quando o jogador para.
+# O personagem começa olhando para baixo.
+var ultima_direcao: Vector2 = Vector2.DOWN
+
+
+func _ready() -> void:
+	sprite.play("idle_down")
 
 
 func _physics_process(_delta: float) -> void:
 	if not can_move:
 		velocity = Vector2.ZERO
 		move_and_slide()
+		reproduzir_animacao("idle", ultima_direcao)
 		return
 
-	var direction := get_input_direction()
+	var direcao: Vector2 = Input.get_vector(
+		"move_left",
+		"move_right",
+		"move_up",
+		"move_down"
+	)
 
-	if direction != Vector2.ZERO:
-		facing_direction = direction
-		velocity = direction * move_speed
+	if direcao != Vector2.ZERO:
+		ultima_direcao = direcao
+		velocity = direcao * velocidade
+		reproduzir_animacao("walk", direcao)
 	else:
 		velocity = Vector2.ZERO
+		reproduzir_animacao("idle", ultima_direcao)
 
 	move_and_slide()
 
 
-func get_input_direction() -> Vector2:
-	var direction := Vector2.ZERO
+func reproduzir_animacao(
+	tipo: String,
+	direcao: Vector2
+) -> void:
+	var nome_direcao: String
 
-	if Input.is_action_pressed("move_up"):
-		direction.y -= 1
+	# Determina se o movimento predominante é horizontal ou vertical.
+	if abs(direcao.x) > abs(direcao.y):
+		if direcao.x > 0.0:
+			nome_direcao = "right"
+		else:
+			nome_direcao = "left"
+	else:
+		if direcao.y > 0.0:
+			nome_direcao = "down"
+		else:
+			nome_direcao = "up"
 
-	if Input.is_action_pressed("move_down"):
-		direction.y += 1
+	var nome_animacao: StringName = StringName(
+		tipo + "_" + nome_direcao
+	)
 
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-
-	return direction.normalized()
+	# Evita reiniciar a animação a cada frame.
+	if sprite.animation != nome_animacao:
+		sprite.play(nome_animacao)
 
 
 func set_can_move(value: bool) -> void:
@@ -46,3 +73,4 @@ func set_can_move(value: bool) -> void:
 
 	if not can_move:
 		velocity = Vector2.ZERO
+		reproduzir_animacao("idle", ultima_direcao)

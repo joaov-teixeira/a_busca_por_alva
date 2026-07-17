@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://d18kj3nrfqanx"]
+
+[ext_resource type="Script" uid="uid://cwbrdapdi5oj" path="res://scripts/dialogue/internal_dialogue_trigger.gd" id="1_6hmnt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_piedb"]
+size = Vector2(401, 358)
+
+[node name="dialogue_triggers" type="Node2D" unique_id=1444693376]
+
+[node name="InternalDialogueTrigger" type="Area2D" parent="." unique_id=1050047490]
+script = ExtResource("1_6hmnt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InternalDialogueTrigger" unique_id=1228076665]
+position = Vector2(190.5, 169)
+shape = SubResource("RectangleShape2D_piedb")
