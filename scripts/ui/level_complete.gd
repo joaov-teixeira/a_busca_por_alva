@@ -3,7 +3,7 @@ extends Control
 
 @export_file("*.tscn")
 var next_level_path: String = (
-	"res://scenes/map/second_level.tscn"
+	"res://scenes/cutscenes/second_map_intro.tscn"
 )
 
 @export_file("*.tscn")

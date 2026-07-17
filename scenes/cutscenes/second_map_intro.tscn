@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://d1psuqqlo3e6a"]
+
+[ext_resource type="Script" uid="uid://jdkd4ni8xkfi" path="res://scripts/cutscenes/second_map_intro.gd" id="1_qigdv"]
+[ext_resource type="Texture2D" uid="uid://by43ouxodvp86" path="res://assets/sprites/reialvabatalha.png" id="2_xos17"]
+
+[node name="SecondMapIntro" type="Control" unique_id=489897254]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qigdv")
+second_map_path = "uid://dp806hyl2mq5w"
+
+[node name="LoreImage" type="TextureRect" parent="." unique_id=1837957529]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xos17")
+expand_mode = 1
+
+[node name="TextPanel" type="PanelContainer" parent="." unique_id=643712235]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TextPanel" unique_id=1672970099]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 200
+
+[node name="Content" type="VBoxContainer" parent="TextPanel/MarginContainer" unique_id=1324237336]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="TextPanel/MarginContainer/Content" unique_id=1282681725]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LoreLabel" type="Label" parent="TextPanel/MarginContainer/Content" unique_id=459794528]
+unique_name_in_owner = true
+layout_mode = 2
+text = "O Rei Demônio capturou a Alva, 
+em seus ultimos esforços, ela protegeu todo o reino e lhe tranferiu parte da sua força"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="TextPanel/MarginContainer/Content" unique_id=746850680]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Continuar"

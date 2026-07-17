@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b4d5omhs8xvg4"]
+
+[ext_resource type="Texture2D" uid="uid://cvxhqoj7fgma5" path="res://assets/sprites/npcs1.png" id="1_fhagd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_buhc6"]
+size = Vector2(125, 175)
+
+[node name="rei" type="CharacterBody2D" unique_id=579283354]
+scale = Vector2(0.06, 0.06)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1198099890]
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_fhagd")
+region_enabled = true
+region_rect = Rect2(523.49664, 25.763733, 339.71887, 427.7818)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=977900129]
+position = Vector2(12.5, 37.5)
+shape = SubResource("RectangleShape2D_buhc6")

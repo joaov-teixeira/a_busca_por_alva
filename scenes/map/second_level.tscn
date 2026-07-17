@@ -1,9 +1,18 @@
 [gd_scene format=3 uid="uid://dp806hyl2mq5w"]
 
 [ext_resource type="PackedScene" uid="uid://bdlv7m4ho8jlw" path="res://terrain.tscn" id="1_0x6a1"]
+[ext_resource type="Script" uid="uid://bny2xtm06uttp" path="res://scripts/ui/second_level.gd" id="1_feyuw"]
 [ext_resource type="PackedScene" uid="uid://chj4d7tmbt665" path="res://interior.tscn" id="2_1y2sh"]
 [ext_resource type="PackedScene" uid="uid://bi63fxavagocj" path="res://scenes/player/player.tscn" id="2_h6ch2"]
-[ext_resource type="PackedScene" uid="uid://rmfjueulxy3m" path="res://objects_terrain.tscn" id="3_xk2e5"]
+[ext_resource type="PackedScene" uid="uid://rmfjueulxy3m" path="res://scenes/world/objects_terrain.tscn" id="3_xk2e5"]
+[ext_resource type="PackedScene" uid="uid://ottfn0qgw7yt" path="res://scenes/world/soldado_lança.tscn" id="5_ibmts"]
+[ext_resource type="PackedScene" uid="uid://dv4shjlpvtx0u" path="res://scenes/world/soldado_mago.tscn" id="6_tbbwq"]
+[ext_resource type="Script" uid="uid://dc008uenlxnsp" path="res://scripts/dialogue/npc_proximity_dialogue.gd" id="7_j5k32"]
+[ext_resource type="Texture2D" uid="uid://32kk8xgwhkke" path="res://assets/portraits/mago.png" id="8_3rn46"]
+[ext_resource type="PackedScene" uid="uid://b4d5omhs8xvg4" path="res://scenes/world/rei.tscn" id="9_abagl"]
+[ext_resource type="Texture2D" uid="uid://d1f31bdctf3l6" path="res://assets/portraits/rei.png" id="10_tikb2"]
+[ext_resource type="Script" uid="uid://nqcb6j8sbwax" path="res://scripts/map/level_exit.gd" id="11_tikb2"]
+[ext_resource type="Script" uid="uid://dtm1uunj6n1tg" path="res://scenes/map/dialogue_trigger.gd" id="13_hgex6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jtwau"]
 size = Vector2(753, 113)
@@ -14,7 +23,14 @@ size = Vector2(663, 115)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4td64"]
 size = Vector2(131.75, 615)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_abagl"]
+size = Vector2(273.33447, 11016.668)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feyuw"]
+size = Vector2(148.5, 518)
+
 [node name="level" type="Node2D" unique_id=1844401856]
+script = ExtResource("1_feyuw")
 
 [node name="Terrain" parent="." unique_id=1047749139 instance=ExtResource("1_0x6a1")]
 position = Vector2(0, 1)
@@ -29,7 +45,7 @@ layer_0/tile_data = PackedInt32Array(-524289, 131072, 4, -458753, 131072, 5, -39
 y_sort_enabled = true
 
 [node name="Player" parent="YSort" unique_id=2104001413 instance=ExtResource("2_h6ch2")]
-position = Vector2(-68, -1)
+position = Vector2(-266, 10)
 
 [node name="ObjectsTerrain" parent="YSort" unique_id=784610184 instance=ExtResource("3_xk2e5")]
 position = Vector2(-16, -11)
@@ -53,3 +69,53 @@ position = Vector2(-3, 5)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3" unique_id=908678132]
 position = Vector2(674.125, -36.5)
 shape = SubResource("RectangleShape2D_4td64")
+
+[node name="soldado lança" parent="." unique_id=579283354 instance=ExtResource("5_ibmts")]
+position = Vector2(-8.999999, -50.999996)
+
+[node name="soldado mago" parent="." unique_id=1535571555 instance=ExtResource("6_tbbwq")]
+position = Vector2(185.99998, -87.99999)
+
+[node name="DialogueTrigger" type="Area2D" parent="soldado mago" unique_id=1874069253]
+script = ExtResource("7_j5k32")
+npc_name = "Mago"
+npc_portrait = ExtResource("8_3rn46")
+dialogue_texts = Array[String](["Volte depois, vou lhe ensinar a controlar sua Mana"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="soldado mago/DialogueTrigger" unique_id=101665740]
+position = Vector2(-146.66455, 816.66644)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_abagl")
+
+[node name="soldado lança2" parent="." unique_id=147638336 instance=ExtResource("5_ibmts")]
+position = Vector2(69.99999, -50.999996)
+
+[node name="rei" parent="." unique_id=1627206817 instance=ExtResource("9_abagl")]
+position = Vector2(347.99997, -83.99999)
+
+[node name="DialogueTrigger" type="Area2D" parent="rei" unique_id=1058935354]
+script = ExtResource("7_j5k32")
+npc_name = "Mago"
+npc_portrait = ExtResource("10_tikb2")
+dialogue_texts = Array[String](["HIMMEL! SALVE MINHA FILHA!"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="rei/DialogueTrigger" unique_id=1593421162]
+position = Vector2(-146.66455, 816.66644)
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_abagl")
+
+[node name="LevelExit" type="Area2D" parent="." unique_id=413283079]
+position = Vector2(400, -12)
+script = ExtResource("11_tikb2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelExit" unique_id=1023535915]
+position = Vector2(73, -39)
+shape = SubResource("RectangleShape2D_feyuw")
+
+[node name="DialogueTrigger" type="Area2D" parent="." unique_id=1981221915]
+position = Vector2(213, -12)
+script = ExtResource("13_hgex6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogueTrigger" unique_id=1928640163]
+position = Vector2(31.75, -39)
+shape = SubResource("RectangleShape2D_feyuw")
