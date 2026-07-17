@@ -37,7 +37,7 @@ func _on_new_game_pressed() -> void:
 	set_buttons_enabled(false)
 
 	SceneTransition.change_scene(
-		"res://scenes/world/intro_map.tscn"
+		"res://scenes/map/initial_level.tscn"
 	)
 
 
