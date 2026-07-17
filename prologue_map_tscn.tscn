@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dfgt0p23i56nl"]
+
+[node name="prologue_map_tscn" type="Node2D" unique_id=2126333774]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=505202522]
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=152836834]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=2055674840]
+
+[node name="Node2D2" type="Node2D" parent="." unique_id=761247153]

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://rmfjueulxy3m"]
+
+[ext_resource type="Texture2D" uid="uid://b2tuls3gvk30y" path="res://assets/floors/objects.png" id="1_kqoq6"]
+[ext_resource type="Texture2D" uid="uid://ojyt2h3evavw" path="res://assets/floors/arvore.png" id="2_1cnl6"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1cnl6"]
+resource_name = "objects"
+texture = ExtResource("1_kqoq6")
+0:5/size_in_atlas = Vector2i(3, 4)
+0:5/0 = 0
+0:5/0/texture_origin = Vector2i(0, 18)
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-11.870676, -5.5756197, 11.690817, -5.935337, 11.870676, 8.273502, -12.230393, 8.273502)
+0:1/0 = 0
+0:0/0 = 0
+5:0/next_alternative_id = 2
+5:0/0 = 0
+5:0/1 = 1
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fhlu4"]
+resource_name = "arvore_morta"
+texture = ExtResource("2_1cnl6")
+texture_region_size = Vector2i(46, 60)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8.093643, 13.489405, 10.791523, 12.410252, 12.769968, 20.324036, 12.230394, 23.921211, 9.712372, 27.878103, 1.978445, 28.057962, -5.2159033, 27.518385, -10.431807, 24.280928, -9.89223, 13.489405)
+
+[sub_resource type="TileSet" id="TileSet_a8ku5"]
+physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_1cnl6")
+sources/2 = SubResource("TileSetAtlasSource_fhlu4")
+
+[node name="ObjectsTerrain" type="TileMap" unique_id=784610184]
+y_sort_enabled = true
+tile_set = SubResource("TileSet_a8ku5")
+format = 2
+layer_0/y_sort_enabled = true
