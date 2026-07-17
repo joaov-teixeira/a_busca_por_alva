@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://cqecei75grqdr"]
+
+[ext_resource type="Script" uid="uid://c7nvqxmuht7fs" path="res://scripts/menus/main_menu.gd" id="1_2o76q"]
+[ext_resource type="FontFile" uid="uid://bcj2rwjyq4tnb" path="res://assets/fonts/The Wild Breath of Zelda.otf" id="1_xqga4"]
+[ext_resource type="Texture2D" uid="uid://bjijegmb6umby" path="res://assets/ui/menu/menu_background.png" id="2_6bivr"]
+[ext_resource type="FontFile" uid="uid://h7r5pp0f1duj" path="res://assets/fonts/Minecraft.ttf" id="2_ovrgc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vn8vg"]
+font = ExtResource("1_xqga4")
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xqga4"]
+font = ExtResource("1_xqga4")
+font_size = 11
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6bivr"]
+font_size = 10
+
+[node name="MainMenu" type="Control" unique_id=973341924]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2o76q")
+
+[node name="BackgroundImage" type="TextureRect" parent="." unique_id=655160692]
+custom_minimum_size = Vector2(-200, -200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_6bivr")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Backgorund" type="ColorRect" parent="." unique_id=1830671387]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.73300546, 0.7330054, 0.7330054, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=368726493]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuContainer" type="VBoxContainer" parent="CenterContainer" unique_id=906007175]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/MenuContainer" unique_id=1057958203]
+layout_mode = 2
+text = "A BUSCA POR ALVA"
+label_settings = SubResource("LabelSettings_vn8vg")
+
+[node name="Subtitle" type="Label" parent="CenterContainer/MenuContainer" unique_id=1474622309]
+layout_mode = 2
+text = "UMA JORNADA INESPERADA"
+label_settings = SubResource("LabelSettings_xqga4")
+
+[node name="NewGame" type="Button" parent="CenterContainer/MenuContainer" unique_id=1867935060]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ovrgc")
+text = "New Game"
+
+[node name="Continue" type="Button" parent="CenterContainer/MenuContainer" unique_id=669348518]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ovrgc")
+text = "Continue"
+
+[node name="Options" type="Button" parent="CenterContainer/MenuContainer" unique_id=1540561380]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ovrgc")
+text = "Options"
+
+[node name="Exit" type="Button" parent="CenterContainer/MenuContainer" unique_id=743359730]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ovrgc")
+text = "Exit"
+
+[node name="MessageLabel" type="Label" parent="." unique_id=872261214]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Opções ainda não implementadas."
+
+[node name="version" type="Label" parent="." unique_id=1550009398]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -94.0
+offset_top = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "versão 0.1 16/07/26"
+label_settings = SubResource("LabelSettings_6bivr")
